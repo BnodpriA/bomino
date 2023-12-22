@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePizzaRequest;
 use App\Http\Requests\UpdatePizzaRequest;
 use App\Models\Pizza;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class PizzaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : Response
     {
-        //
+        $pizzas = Pizza::all();
+
+        return Inertia::render('Pizzas/All', [
+            'pizzas' => $pizzas,
+        ]);
     }
 
     /**
@@ -37,7 +44,7 @@ class PizzaController extends Controller
      */
     public function show(Pizza $pizza)
     {
-        //
+
     }
 
     /**
@@ -45,15 +52,19 @@ class PizzaController extends Controller
      */
     public function edit(Pizza $pizza)
     {
-        //
+        return Inertia::render('Pizzas/Edit', [
+            'pizza' => $pizza
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePizzaRequest $request, Pizza $pizza)
+    public function update(Request $request, Pizza $pizza)
     {
-        //
+        $pizza->update([
+            'status' => $request->status,
+        ]);
     }
 
     /**

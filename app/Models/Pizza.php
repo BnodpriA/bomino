@@ -16,6 +16,15 @@ class Pizza extends Model
         'toppings' => 'array'
     ];
 
+    protected $hidden = [
+        'user',
+    ];
+
+    protected $appends = [
+        'chef',
+        'last_updated',
+    ];
+
     /**
      * Get the user that owns the Pizza
      *
@@ -24,5 +33,15 @@ class Pizza extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getChefAttribute(): string
+    {
+        return $this->user->name;
+    }
+
+    public function getLastUpdatedAttribute(): string
+    {
+        return $this->updated_at->diffForHumans();
     }
 }
