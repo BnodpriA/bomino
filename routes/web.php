@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\PizzaOrderController;
+use App\Http\Controllers\PizzaStatusController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,8 @@ Route::get('order/{pizza}', [PizzaOrderController::class, 'showPizza'])->name('p
 Route::middleware('auth')->group(function () {
     Route::get('pizzas', [PizzaController::class, 'index'])->name('pizzas.index');
     Route::get('pizzas/{pizza}', [PizzaController::class, 'edit'])->name('pizzas.edit');
-    Route::patch('pizzas/{pizza}', [PizzaController::class, 'update '])->name('pizzas.update ');
+    Route::patch('/pizzas/{pizza}', [PizzaStatusController::class, 'updateStatus'])->name('pizzas.update');
+    // Route::patch('pizzas/{pizza}', [PizzaStatusController::class, 'updateStatus '])->name('pizzas.update ');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
